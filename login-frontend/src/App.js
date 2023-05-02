@@ -1,9 +1,12 @@
-
-import './App.css';
+import Login from './components/login';
+import Home from './pages/home'
+import appStyles from './styles/App.module.css'
 
 function App() {
   return (
-    <div>
+    <div className={appStyles.wrapper}>
+      {/* <Login/> */}
+      <Home/>
 
     </div>
   );
