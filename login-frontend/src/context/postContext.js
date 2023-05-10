@@ -20,3 +20,14 @@ export const postReducer = (state, action) => {
             return state
     }
 }
+
+export const PostContextProvider = ({children}) => {
+    const [state, dispatch] = useReducer(postReducer, {posts: null})
+    console.log(state)
+    
+    return (
+        <PostContext.Provider value={{...state, dispatch}}>
+            {children}
+        </PostContext.Provider>
+    )
+}

@@ -1,15 +1,17 @@
+import { useState, useEffect } from "react";
 import React from 'react';
 import formStyles from '../styles/Form.module.css'
-import { useState } from 'react';
-import useLogin from '../hooks/useLogin';
-import { Link } from 'react-router-dom';
+import { useAuthContext } from "../hooks/useAuthContext";
+import useRegister from "../hooks/useRegister";
+import { Link } from "react-router-dom";
 
-const Login = () => {
-    const {login, error} = useLogin()
-
+const Register = () => {
+    const {register} = useRegister()
     const [form, setform] = useState({
         username: '',
-        password: ''
+        email: '',
+        password: '',
+        confirm: ''
     });
 
     const handleChange = (e) => {
@@ -25,8 +27,12 @@ const Login = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        await login(form)
+        await register(form)
     }
+
+    useEffect(() => {
+        console.log(form)
+    }, [form]);
 
     return (
         <div className={formStyles.form}>
@@ -41,6 +47,14 @@ const Login = () => {
                 </div>
                 <div>
                     <div>
+                        <label htmlFor="email">Email</label>
+                    </div>
+                    <div>
+                        <input type="text" name="email" value={form.email} onChange={handleChange}/>
+                    </div>
+                </div>
+                <div>
+                    <div>
                         <label htmlFor="password">Password</label>
                     </div>
                     <div>
@@ -48,17 +62,22 @@ const Login = () => {
                     </div>
                 </div>
                 <div>
-                    <button onClick={onSubmit}>Login</button>
+                    <div>
+                        <label htmlFor="confirm">Confirm</label>
+                    </div>
+                    <div>
+                        <input type="text" name="confirm" value={form.confirm} onChange={handleChange}/>
+                    </div>
                 </div>
                 <div>
-                    Don't have an account? <Link to={'/register'}><strong>Sign up</strong></Link>
+                    <button onClick={onSubmit}>Register</button>
                 </div>
                 <div>
-                    <p>{error}</p>
+                    Already a user? <Link to={'/login'}><strong>Sign in</strong></Link>
                 </div>
             </form>
         </div>
     );
 }
 
-export default Login;
+export default Register;

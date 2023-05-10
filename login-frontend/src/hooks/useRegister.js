@@ -1,19 +1,18 @@
+import {useAuthContext} from './useAuthContext'
 import React from 'react';
 import { useState } from 'react';
-import { useAuthContext } from './useAuthContext';
 
-const useLogin = () => {
-    const {dispatch} = useAuthContext()
+const useRegister = () => {
     const [error, seterror] = useState(null);
+    const {dispatch} = useAuthContext()
 
-    const login = async (form) => {
-        const res = await fetch('/auth/login', {
+    const register = async (form) => {
+        const res = await fetch('/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(form)
-            
         })
         const json = await res.json()
 
@@ -21,12 +20,11 @@ const useLogin = () => {
             seterror(json.error)
         }
         if (res.ok) {
-            localStorage.setItem('user', JSON.stringify(json))
             dispatch({type: 'LOGIN', payload: json})
         }
-
     }
-    return {error, login}
+
+    return {register, error}
 }
 
-export default useLogin;
+export default useRegister;
