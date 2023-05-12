@@ -1,6 +1,11 @@
 .card {
-    width: 60em;
+    width: 25em;
     padding: 1em;
-    background-color: bisque;
-    border: solid 1px black;
+    background-color: #C3C9E9;
+    border: solid 3px #4694e8;
+    border-radius: 5px;
+    margin: 2em 0;
+}
+.card button {
+    margin-right: 0.5em;
 }

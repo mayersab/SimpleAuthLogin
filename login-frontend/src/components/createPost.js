@@ -1,8 +1,9 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
-import { Navigate, useParams } from 'react-router';
-import { usePostsContext } from '../hooks/usePostsContext';
+import { Navigate} from 'react-router';
+import { Link } from 'react-router-dom';
+import formStyles from '../styles/Form.module.css'
 
 
 const NewPost = () => {
@@ -60,24 +61,30 @@ const NewPost = () => {
 
     return (
         <div>
-            <form>
-                <div>
+            <div className={formStyles.form}>
+                <form>
                     <div>
-                        <label htmlFor="message">Message</label>
+                        <div>
+                            <label htmlFor="message">Message</label>
+                        </div>
+                        <div>
+                        <input type="text" name='message' value={state.message} onChange={handleChange}/>
+                        </div>
+                        <div className={formStyles.btncont}>
+                            <button onClick={(e) => {
+                                e.preventDefault()
+                                createPost()
+                            }}>Submit</button>
+                            {error ? <div className={formStyles.errorcont}><p>{error}</p></div> : null }
+                        </div>
+                        
                     </div>
-                    <div>
-                       <input type="text" name='message' value={state.message} onChange={handleChange}/>
-                    </div>
-                    <div>
-                        <button onClick={(e) => {
-                            e.preventDefault()
-                            createPost()
-                        }}>Submit</button>
-                        <div>{error && <p>{error}</p>}</div>
-                    </div>
-                </div>
-            </form>
-
+                </form>
+            </div>
+            <div>
+                <Link to={'/'}>Back to home</Link>
+            </div>
+            
         </div>
     );
 }

@@ -3,26 +3,36 @@ import postStyles from '../styles/Posts.module.css'
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { usePostsContext } from '../hooks/usePostsContext';
+import { useState, useEffect } from 'react';
 
 const Posts = ({message, date, postedBy, id}) => {
     const todaysDate = new Date(date).toLocaleDateString()
     const {user} = useAuthContext()
-    const {dispatch} = usePostsContext()
+    const {state, dispatch} = usePostsContext()
+    const [error, seterror] = useState(null);
+    useEffect(() => {
 
+    }, [state]);
     const deletePosts = async () => {
-        const res = await fetch(`/messages/delete/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${user.token}`
+
+        try {
+            const res = await fetch(`/messages/delete/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
+    
+            const json = await res.json()
+    
+            if(res.ok) {
+                dispatch({type: 'DELETE', action: json})
             }
-        })
-
-        const json = await res.json()
-
-        if(res.ok) {
-            dispatch({type: 'DELETE', action: json})
+        } catch (error) {
+            seterror(error)
         }
+
     }
 
 

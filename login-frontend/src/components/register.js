@@ -6,7 +6,7 @@ import useRegister from "../hooks/useRegister";
 import { Link } from "react-router-dom";
 
 const Register = () => {
-    const {register} = useRegister()
+    const {register, error} = useRegister()
     const [form, setform] = useState({
         username: '',
         email: '',
@@ -69,12 +69,13 @@ const Register = () => {
                         <input type="text" name="confirm" value={form.confirm} onChange={handleChange}/>
                     </div>
                 </div>
-                <div>
+                <div className={formStyles.btncont}>
                     <button onClick={onSubmit}>Register</button>
                 </div>
-                <div>
+                <div className={formStyles.linkcont}>
                     Already a user? <Link to={'/login'}><strong>Sign in</strong></Link>
                 </div>
+                {error ? <div className={formStyles.errorcont}><p>{error}</p></div> : null }
             </form>
         </div>
     );

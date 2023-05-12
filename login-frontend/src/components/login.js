@@ -47,15 +47,13 @@ const Login = () => {
                         <input type="text" name="password" value={form.password} onChange={handleChange}/>
                     </div>
                 </div>
-                <div>
+                <div className={formStyles.btncont}>
                     <button onClick={onSubmit}>Login</button>
                 </div>
-                <div>
+                <div className={formStyles.linkcont}>
                     Don't have an account? <Link to={'/register'}><strong>Sign up</strong></Link>
                 </div>
-                <div>
-                    <p>{error}</p>
-                </div>
+                {error ? <div className={formStyles.errorcont}><p>{error}</p></div> : null }
             </form>
         </div>
     );

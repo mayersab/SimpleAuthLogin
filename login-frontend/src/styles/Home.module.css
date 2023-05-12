@@ -3,3 +3,6 @@
     height: 10rem;
     background-color: aqua;
 }
+.linkwrapper a {
+    margin-right: 1em;
+}

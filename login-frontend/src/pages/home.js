@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { usePostsContext } from '../hooks/usePostsContext';
 import { useAuthContext } from '../hooks/useAuthContext';
 import Posts from '../components/posts';
+import { Link } from 'react-router-dom';
 import homeStyles from '../styles/Home.module.css'
 
 const Home = () => {
-    // make api call map over results and render the card component
-    // prop will need to figure out why proxy isnt working
+
     const {user, dispatch: authDispatch} = useAuthContext()
     const {posts, dispatch: postsDispatch} = usePostsContext()
     const [error, seterror] = useState(null);
@@ -34,11 +34,16 @@ const Home = () => {
 
 
      
-    }, []);
+    }, [posts]);
 
     return (
         <div>
-            <button onClick={logout}>Logout</button>
+
+            <div className={homeStyles.linkwrapper}>
+                <Link to={'/create'}>Create a Post</Link>
+                <Link onClick={logout} to={'/login'}>Logout</Link>
+            </div>
+            
             {
                 posts && posts.map((item) => {
                     return (
